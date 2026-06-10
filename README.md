@@ -10,8 +10,8 @@
         h1 { color: #1e293b; margin-top: 0; margin-bottom: 5px; font-size: 26px; }
         .subtitle { color: #64748b; margin-bottom: 25px; font-size: 14px; }
         
-        /* Advanced Control Grid */
-        .control-panel { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 15px; }
+        /* Layout Configuration Grid */
+        .control-panel { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 20px; }
         label { font-weight: bold; display: block; margin-bottom: 6px; color: #475569; font-size: 13px; }
         input[type="range"] { width: 100%; cursor: pointer; }
         select { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #cbd5e1; font-size: 14px; background: white; }
@@ -32,7 +32,7 @@
         .analysis-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; font-size: 13.5px; line-height: 1.6; height: 100%; box-sizing: border-box; }
         .analysis-box h3 { margin-top: 0; color: #1e293b; font-size: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
         
-        /* History & Value Base */
+        /* History & Value Systems */
         .history-section { border-top: 2px dashed #e2e8f0; padding-top: 25px; margin-top: 10px; }
         .history-section h2 { color: #0f172a; font-size: 19px; margin-top: 0; margin-bottom: 15px; }
         
@@ -47,7 +47,7 @@
         .timeline-table th { background: #f1f5f9; color: #334155; padding: 10px; font-weight: 600; border-bottom: 2px solid #cbd5e1; }
         .timeline-table td { padding: 10px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
         .timeline-table tbody tr { cursor: pointer; transition: background 0.2s; }
-        .timeline-table tbody tr:hover { background: #fcf1f1; }
+        .timeline-table tbody tr:hover { background: #fee2e2; }
         .timeline-table tr.selected-row { background: #fee2e2 !important; font-weight: bold; border-left: 4px solid #dc2626; }
         
         .rate-tag { background: #e2e8f0; color: #1e293b; padding: 2px 5px; border-radius: 4px; font-weight: bold; display: inline-block; }
@@ -64,32 +64,32 @@
 
 <div class="container">
     <h1>Advanced HKDSE Economics Minimum Wage Simulator</h1>
-    <div class="subtitle">An advanced simulation playground tracking simultaneous market shocks (Demand & Supply curves shifting) combined with legislative price controls.</div>
+    <div class="subtitle">Simulate continuous structural market shocks (Demand & Supply curves shifting) alongside legal price minimum constraints.</div>
     
     <div class="control-panel">
         <div>
             <label for="wageSlider">Statutory Minimum Wage ($/Hr): $<span id="wageVal">43.1</span></label>
             <input type="range" id="wageSlider" min="25" max="60" value="43.1" step="0.1">
-            <label for="elasticitySelect" style="margin-top: 10px;">Demand Price Elasticity (E<sub>d</sub>)</label>
+            <label for="elasticitySelect" style="margin-top: 12px;">Demand Price Elasticity (E<sub>d</sub>)</label>
             <select id="elasticitySelect">
-                <option value="inelastic" selected>Inelastic (Ed < 1)</option>
-                <option value="elastic">Elastic (Ed > 1)</option>
+                <option value="inelastic" selected>Inelastic (Ed &lt; 1)</option>
+                <option value="elastic">Elastic (Ed &gt; 1)</option>
             </select>
         </div>
         <div>
-            <label for="demandShock">Labor Demand Shock (Curve Position)</label>
+            <label for="demandShock">Labor Demand Shock (Curve Shifts)</label>
             <select id="demandShock">
-                <option value="none" selected>Constant Demand (D1 Baseline)</option>
-                <option value="increase">Increase (+D) [e.g., Economic Boom]</option>
-                <option value="decrease">Decrease (-D) [e.g., Industry Recession]</option>
+                <option value="none" selected>Constant Demand (D Baseline)</option>
+                <option value="increase">Increase (+D) [Economic Expansion]</option>
+                <option value="decrease">Decrease (-D) [Industry Structural Recession]</option>
             </select>
         </div>
         <div>
-            <label for="supplyShock">Labor Supply Shock (Curve Position)</label>
+            <label for="supplyShock">Labor Supply Shock (Curve Shifts)</label>
             <select id="supplyShock">
-                <option value="none" selected>Constant Supply (S1 Baseline)</option>
-                <option value="increase">Increase (+S) [e.g., Immigration Inflow]</option>
-                <option value="decrease">Decrease (-S) [e.g., Aging Workforce]</option>
+                <option value="none" selected>Constant Supply (S Baseline)</option>
+                <option value="increase">Increase (+S) [Workforce/Immigration Inflow]</option>
+                <option value="decrease">Decrease (-S) [Aging Demographics Outflow]</option>
             </select>
         </div>
     </div>
@@ -98,20 +98,20 @@
 
     <div class="stats-grid">
         <div class="stat-card">
-            <div class="stat-title">Actual Employment</div>
-            <div class="stat-num" id="statEmp">93.8</div>
+            <div class="stat-title">Actual Employment (Q)</div>
+            <div class="stat-num" id="statEmp">100.0</div>
         </div>
         <div class="stat-card">
             <div class="stat-title">Involuntary Unemployment (Surplus)</div>
-            <div class="stat-num" id="statUnemp">12.4</div>
+            <div class="stat-num" id="statUnemp">0.0</div>
         </div>
         <div class="stat-card" id="earningsCard">
             <div class="stat-title">Total Wage Earnings</div>
-            <div class="stat-num" id="statEarnings">$4,043</div>
+            <div class="stat-num" id="statEarnings">$4,000</div>
         </div>
         <div class="stat-card" id="dwlCard">
             <div class="stat-title">Deadweight Loss (DWL)</div>
-            <div class="stat-num" id="statDwl">$10</div>
+            <div class="stat-num" id="statDwl">$0</div>
         </div>
     </div>
 
@@ -120,7 +120,7 @@
         
         <div class="analysis-box">
             <h3>HKDSE Market Shock Evaluation</h3>
-            <div id="analysisText">Computing algebraic structural shifts...</div>
+            <div id="analysisText">Computing metrics...</div>
         </div>
     </div>
 
@@ -140,7 +140,7 @@
 
         <h3>📈 Statutory Minimum Wage Rate Timeline (2011–2026)</h3>
         <p style="font-size: 13px; color: #64748b; margin-top: -8px; margin-bottom: 15px;">
-            *Click on any historical row below to sync the minimum wage rate line directly onto the graphical model workspace above.
+            *Click on any historical milestone row below to automatically update the interactive wage constraint slider line.
         </p>
 
         <div class="table-wrapper">
@@ -233,7 +233,7 @@
     const analysisText = document.getElementById('analysisText');
     const historyTableRows = document.querySelectorAll('#historyTable tbody tr');
 
-    // Baseline Parameters
+    // Standard Math Baseline References
     const We_orig = 40.0;
     const Qe_orig = 100;
 
@@ -245,23 +245,20 @@
         
         wageVal.innerText = W_floor.toFixed(1);
 
-        // Calculate Shift Shifts mathematically
+        // Map Curve Shifts to Intercept Multipliers
         let dShift = 0;
-        if (dShock === 'increase') dShift = 25;
-        if (dShock === 'decrease') dShift = -25;
+        if (dShock === 'increase') dShift = 30;
+        if (dShock === 'decrease') dShift = -30;
 
         let sShift = 0;
-        if (sShock === 'increase') sShift = 25;
-        if (sShock === 'decrease') sShift = -25;
+        if (sShock === 'increase') sShift = 30;
+        if (sShock === 'decrease') sShift = -30;
 
-        // Curve constants
-        let slopeD = elasticity === 'inelastic' ? 2.0 : 4.5;
+        // Establish Elasticity Coefficients
+        let slopeD = elasticity === 'inelastic' ? 1.5 : 4.0;
         let slopeS = 2.0;
 
-        // Compute new theoretical equilibrium (Intersection of shifted curves)
-        // Qd = Qe_orig + dShift - slopeD * (W - We_orig)
-        // Qs = Qe_orig + sShift + slopeS * (W - We_orig)
-        // Set Qd = Qs => W_new_eq = We_orig + (dShift - sShift) / (slopeD + slopeS)
+        // Compute new equilibrium equilibrium coordinates via simultaneous math system
         const We_new = We_orig + (dShift - sShift) / (slopeD + slopeS);
         const Qe_new = Qe_orig + dShift - slopeD * (We_new - We_orig);
 
@@ -275,24 +272,26 @@
             Qs = Qe_new + slopeS * (W_floor - We_new);
         }
 
+        // Clamp values to prevent negative rendering bounds
+        if (Qd < 0) Qd = 0;
+
         const actualEmp = isEffective ? Qd : Qe_new;
-        const surplus = isEffective ? (Qs - Qd) : 0;
+        const surplus = isEffective ? Math.max(0, Qs - Qd) : 0;
         const totalEarnings = (isEffective ? W_floor : We_new) * actualEmp;
         const baselineRevenue = We_new * Qe_new;
 
-        // Deadweight Loss calculation via transaction height mismatch
+        // Height variation calculation for deadweight loss
         const dwl = isEffective ? 0.5 * (W_floor - (We_new - (Qe_new - Qd) / slopeS)) * (Qe_new - Qd) : 0;
 
-        // Update indicators
+        // Visual Data Card population
         statEmp.innerText = actualEmp.toFixed(1);
         statUnemp.innerText = surplus.toFixed(1);
         statEarnings.innerText = '$' + Math.round(totalEarnings);
         statDwl.innerText = isEffective ? '$' + Math.round(dwl) : '$0';
         
-        // Formulate Advanced Explanatory Commentary
         let shockSummary = "";
         if (dShock !== 'none' || sShock !== 'none') {
-            shockSummary = `<b>Market Environment Shock:</b> the equilibrium wage point shifted from $${We_orig.toFixed(1)} to <b>$${We_new.toFixed(1)}</b> due to structural forces.<br><br>`;
+            shockSummary = `<b>Market Shocks Triggered:</b> Dynamic interaction forces shifted the equilibrium clearing wage point from $${We_orig.toFixed(1)} to <b>$${We_new.toFixed(1)}</b>.<br><br>`;
         }
 
         if (isEffective) {
@@ -303,22 +302,22 @@
             if (totalEarnings > baselineRevenue) {
                 earningsCard.className = "stat-card gain";
                 analysisText.innerHTML = `${shockSummary}
-                    <b>Policy Status:</b> Effective ($${W_floor.toFixed(1)} &gt; Current New Eq $${We_new.toFixed(1)})<br><br>
-                    <b>Total Earnings Elasticity Effect:</b><br>
-                    Because labor demand is <span class="text-gain">Inelastic</span> within this spectrum, the wage premium percentage surpasses the layoff adjustment percentage.<br>
-                    • Green Shaded Box &gt; Red Shaded Box.
-                    • Aggregate earnings <span class="text-gain">rose</span> to $${Math.round(totalEarnings)}.<br><br>
-                    <b>Market Surplus:</b> creates an involuntary unemployment gap of <b>${surplus.toFixed(1)} workers</b>, inducing a <b>Deadweight Loss</b> of $${Math.round(dwl)}.
+                    <b>Policy Status:</b> Effective ($${W_floor.toFixed(1)} &gt; Current Eq $${We_new.toFixed(1)})<br><br>
+                    <b>Total Labor Expenditure Outcome:</b><br>
+                    Because labor demand is <span class="text-gain">Inelastic</span>, the percentage wage adjustment outpaces the percentage layoff response.<br>
+                    • Green Geometric Box &gt; Red Geometric Box.<br>
+                    • Total earnings <span class="text-gain">increased</span> to $${Math.round(totalEarnings)}.<br><br>
+                    <b>Market Efficiency:</b> Creates involuntary unemployment of <b>${surplus.toFixed(1)} workers</b>, leading to an efficiency <b>Deadweight Loss</b> of $${Math.round(dwl)}.
                 `;
             } else {
                 earningsCard.className = "stat-card loss";
                 analysisText.innerHTML = `${shockSummary}
-                    <b>Policy Status:</b> Effective ($${W_floor.toFixed(1)} &gt; Current New Eq $${We_new.toFixed(1)})<br><br>
-                    <b>Total Earnings Elasticity Effect:</b><br>
-                    Because labor demand is <span class="text-loss">Elastic</span>, firms shed operational hours dramatically to mitigate regulatory expenditure overheads.<br>
-                    • Red Shaded Box &gt; Green Shaded Box.
-                    • Aggregate earnings <span class="text-loss">dropped</span> to $${Math.round(totalEarnings)}.<br><br>
-                    <b>Market Surplus:</b> massive headcounts are displaced. Labor surplus hits <b>${surplus.toFixed(1)} units</b>. DWL expands to $${Math.round(dwl)}.
+                    <b>Policy Status:</b> Effective ($${W_floor.toFixed(1)} &gt; Current Eq $${We_new.toFixed(1)})<br><br>
+                    <b>Total Labor Expenditure Outcome:</b><br>
+                    Because labor demand is <span class="text-loss">Elastic</span>, firms rapidly downscale staffing levels to offset regulatory costs.<br>
+                    • Red Geometric Box &gt; Green Geometric Box.<br>
+                    • Total earnings <span class="text-loss">decreased</span> to $${Math.round(totalEarnings)}.<br><br>
+                    <b>Market Efficiency:</b> Severe workforce scaling yields an unemployment surplus of <b>${surplus.toFixed(1)} workers</b>. DWL hit $${Math.round(dwl)}.
                 `;
             }
         } else {
@@ -327,16 +326,16 @@
             earningsCard.className = "stat-card";
             dwlCard.className = "stat-card";
             analysisText.innerHTML = `${shockSummary}
-                <b>Policy Status:</b> Ineffective ($${W_floor.toFixed(1)} &le; Current New Eq $${We_new.toFixed(1)})<br><br>
+                <b>Policy Status:</b> Ineffective ($${W_floor.toFixed(1)} &le; Current Eq $${We_new.toFixed(1)})<br><br>
                 <b>Outcome Analysis:</b><br>
-                The wage regulation lies at or below the dynamic market-clearing price. Natural supply/demand forces dominate, clearing transactions natively at <b>$${We_new.toFixed(1)}</b>.<br><br>
-                • Employment operates smoothly at new equilibrium <b>${Qe_new.toFixed(1)}</b>.<br>
-                • Total Wage Revenue stays fixed at baseline <b>$${Math.round(baselineRevenue)}</b> (Shaded constant gray block).<br>
-                • No involuntary displacement or Deadweight Loss occurs.
+                The minimum wage constraint is below the dynamic equilibrium rate. Market forces pull coordinates up to equilibrium clearing price <b>$${We_new.toFixed(1)}</b>.<br><br>
+                • Employment clears naturally at <b>${Qe_new.toFixed(1)}</b>.<br>
+                • Total Expenditure is fixed at baseline <b>$${Math.round(baselineRevenue)}</b> (Shaded gray block).<br>
+                • No job position displacement or efficiency loss is introduced.
             `;
         }
 
-        // Table highlight engine
+        // Row highlighting filter
         historyTableRows.forEach(row => {
             const rowWage = parseFloat(row.getAttribute('data-wage'));
             if (Math.abs(W_floor - rowWage) < 0.05) {
@@ -346,7 +345,7 @@
             }
         });
 
-        // --- GRAPH CANVAS ENGINE ---
+        // --- GRAPH CANVAS RENDERING PIPELINE ---
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const padding = 60;
         const graphWidth = canvas.width - padding * 2;
@@ -355,7 +354,7 @@
         function getX(q) { return padding + (q / 180) * graphWidth; }
         function getY(w) { return canvas.height - padding - (w / 75) * graphHeight; }
 
-        // Core Area Geometry Fills
+        // Render Geometry Box Shading Coordinates
         if (isEffective) {
             // Gain Box (Green)
             ctx.fillStyle = 'rgba(16, 185, 129, 0.18)';
@@ -372,12 +371,12 @@
             ctx.closePath();
             ctx.fill();
         } else {
-            // Constant Equilibrium Total Expenditure Frame (Gray)
+            // Maintain static baseline reference rect framework (Gray)
             ctx.fillStyle = 'rgba(148, 163, 184, 0.15)';
             ctx.fillRect(getX(0), getY(We_new), getX(Qe_new) - getX(0), getY(0) - getY(We_new));
         }
 
-        // Render Axes
+        // Draw Axes Vector Paths
         ctx.beginPath(); ctx.strokeStyle = '#334155'; ctx.lineWidth = 2;
         ctx.moveTo(padding, padding); ctx.lineTo(padding, canvas.height - padding);
         ctx.lineTo(canvas.width - padding, canvas.height - padding); ctx.stroke();
@@ -386,7 +385,7 @@
         ctx.fillText('Wage Rate ($)', padding - 50, padding - 15);
         ctx.fillText('Quantity of Labor (Q)', canvas.width - padding - 60, canvas.height - padding + 40);
 
-        // --- DRAW CURVE FUNCTIONS ---
+        // Universal Curve Line Engine
         function drawCurve(x1, y1, x2, y2, color, label, isDashed = false) {
             ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = isDashed ? 1.5 : 3;
             if (isDashed) ctx.setLineDash([4, 4]);
@@ -397,22 +396,22 @@
 
         // Render D1 Baseline if shifted
         if (dShock !== 'none') {
-            drawCurve(Qe_orig - slopeD*(65-We_orig), 65, Qe_orig - slopeD*(15-We_orig), 15, '#93c5fd', 'D1', true);
+            drawCurve(Qe_orig - slopeD * (65 - We_orig), 65, Qe_orig - slopeD * (15 - We_orig), 15, '#93c5fd', 'D1', true);
         }
         // Render S1 Baseline if shifted
         if (sShock !== 'none') {
-            drawCurve(Qe_orig + slopeS*(15-We_orig), 15, Qe_orig + slopeS*(65-We_orig), 65, '#fdbb2d', 'S1', true);
+            drawCurve(Qe_orig + slopeS * (15 - We_orig), 15, Qe_orig + slopeS * (65 - We_orig), 65, '#fdbb2d', 'S1', true);
         }
 
-        // Render Active Shifted Demand (D2)
+        // Draw Active Shifted Demand Curve (D)
         const d_center = Qe_orig + dShift;
-        drawCurve(d_center - slopeD*(65-We_orig), 65, d_center - slopeD*(15-We_orig), 15, '#2563eb', dShock !== 'none' ? 'D2' : 'D');
+        drawCurve(d_center - slopeD * (65 - We_orig), 65, d_center - slopeD * (15 - We_orig), 15, '#2563eb', dShock !== 'none' ? 'D2' : 'D');
 
-        // Render Active Shifted Supply (S2)
+        // Draw Active Shifted Supply Curve (S)
         const s_center = Qe_orig + sShift;
-        drawCurve(s_center + slopeS*(15-We_orig), 15, s_center + slopeS*(65-We_orig), 65, '#ea580c', sShock !== 'none' ? 'S2' : 'S');
+        drawCurve(s_center + slopeS * (15 - We_orig), 15, s_center + slopeS * (65 - We_orig), 65, '#ea580c', sShock !== 'none' ? 'S2' : 'S');
 
-        // Render Dynamic Equilibrium Trackers
+        // Render Equilibrium Alignment Track Lines
         ctx.setLineDash([3, 3]); ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(getX(0), getY(We_new)); ctx.lineTo(getX(Qe_new), getY(We_new)); ctx.stroke();
         ctx.beginPath(); ctx.moveTo(getX(Qe_new), getY(0)); ctx.lineTo(getX(Qe_new), getY(We_new)); ctx.stroke();
@@ -422,7 +421,7 @@
         ctx.fillText(`W_e ($${We_new.toFixed(1)})`, padding - 55, getY(We_new) + 4);
         ctx.fillText(`Q_e (${Qe_new.toFixed(1)})`, getX(Qe_new) - 20, canvas.height - padding + 18);
 
-        // Render Legal Minimum Wage Constraint Line
+        // Imposed Legislative Price Limit Constraint Line
         ctx.beginPath();
         ctx.strokeStyle = isEffective ? '#dc2626' : '#64748b';
         ctx.lineWidth = isEffective ? 2.5 : 1.5;
@@ -432,7 +431,7 @@
         ctx.fillText('W_min ($' + W_floor.toFixed(1) + ')', getX(165) - 95, getY(W_floor) - 6);
 
         if (isEffective) {
-            // Drop intercept projection dashed strings
+            // Track projection drops
             ctx.setLineDash([2, 2]); ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 1;
             ctx.beginPath(); ctx.moveTo(getX(Qd), getY(W_floor)); ctx.lineTo(getX(Qd), getY(0)); ctx.stroke();
             ctx.beginPath(); ctx.moveTo(getX(Qs), getY(W_floor)); ctx.lineTo(getX(Qs), getY(0)); ctx.stroke();
@@ -450,7 +449,7 @@
         }
     }
 
-    // Connect Table click mechanisms
+    // Attach Row Click Sinks
     historyTableRows.forEach(row => {
         row.addEventListener('click', () => {
             wageSlider.value = row.getAttribute('data-wage');
@@ -458,13 +457,13 @@
         });
     });
 
-    // Handle interactive parameter switches
+    // Event Triggers
     wageSlider.addEventListener('input', drawMarket);
     elasticitySelect.addEventListener('change', drawMarket);
     demandShock.addEventListener('change', drawMarket);
     supplyShock.addEventListener('change', drawMarket);
     
-    // Initial Boot
+    // Initial Bootstrap
     drawMarket();
 </script>
 
