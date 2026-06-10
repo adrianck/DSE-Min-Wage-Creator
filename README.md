@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HKDSE Economics Minimum Wage Simulator & History Archive</title>
+    <title>HKDSE Economics Minimum Wage Simulator & Values Archive</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f5f7fa; color: #333; padding: 20px; display: flex; justify-content: center; }
-        .container { max-width: 1050px; width: 100%; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .container { max-width: 1150px; width: 100%; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         h1 { color: #1e293b; margin-top: 0; margin-bottom: 5px; font-size: 26px; }
         .subtitle { color: #64748b; margin-bottom: 25px; font-size: 14px; }
         
@@ -26,41 +26,48 @@
         .stat-title { font-size: 13px; color: #64748b; font-weight: 500; }
         .stat-num { font-size: 22px; font-weight: bold; margin-top: 5px; color: #0f172a; }
         
-        /* Layout Structure */
         .workspace-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 25px; margin-bottom: 30px; align-items: start; }
         canvas { background: #ffffff; border: 1px solid #e2e8f0; width: 100%; height: auto; display: block; border-radius: 8px; }
         .analysis-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; font-size: 14px; line-height: 1.6; height: 100%; box-sizing: border-box; }
         .analysis-box h3 { margin-top: 0; color: #1e293b; font-size: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
         
-        /* History & Archive Section */
+        /* History & Value Section */
         .history-section { border-top: 2px dashed #e2e8f0; padding-top: 25px; margin-top: 10px; }
         .history-section h2 { color: #0f172a; font-size: 20px; margin-top: 0; margin-bottom: 15px; }
-        .pre-legislation-card { background: #f8fafc; border-left: 4px solid #3b82f6; padding: 15px; border-radius: 6px; margin-bottom: 20px; font-size: 14px; line-height: 1.5; }
+        
+        .values-education-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .value-card { padding: 15px; border-radius: 8px; font-size: 13.5px; line-height: 1.5; border-left: 4px solid; }
+        .value-card.edu { background: #f0fdf4; border-left-color: #16a34a; color: #14532d; }
+        .value-card.sec { background: #f0f9ff; border-left-color: #0284c7; color: #0c4a6e; }
+        .value-card h4 { margin: 0 0 6px 0; font-size: 15px; font-weight: bold; }
+        
+        .pre-legislation-card { background: #f8fafc; border-left: 4px solid #64748b; padding: 15px; border-radius: 6px; margin-bottom: 20px; font-size: 13.5px; line-height: 1.5; }
         .pre-legislation-card h4 { margin: 0 0 8px 0; color: #1e293b; font-size: 15px; }
         
         /* Interactive Timeline Table */
         .table-wrapper { overflow-x: auto; }
-        .timeline-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px; }
+        .timeline-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; line-height: 1.4; }
         .timeline-table th { background: #f1f5f9; color: #334155; padding: 12px; font-weight: 600; border-bottom: 2px solid #cbd5e1; }
-        .timeline-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        .timeline-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
         .timeline-table tbody tr { cursor: pointer; transition: background 0.2s; }
-        .timeline-table tbody tr:hover { background: #f0fdf4; }
+        .timeline-table tbody tr:hover { background: #fcf1f1; }
         .timeline-table tr.selected-row { background: #fee2e2 !important; font-weight: bold; border-left: 4px solid #dc2626; }
         
-        .rate-tag { background: #e0f2fe; color: #0369a1; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
-        .change-tag { font-weight: 600; }
+        .rate-tag { background: #e2e8f0; color: #1e293b; padding: 3px 6px; border-radius: 4px; font-weight: bold; display: inline-block; }
+        .change-tag { font-weight: 600; display: block; margin-top: 2px; font-size: 11px; }
         .change-up { color: #15803d; }
         .change-flat { color: #64748b; }
         
         .text-gain { color: #059669; font-weight: bold; }
         .text-loss { color: #dc2626; font-weight: bold; }
+        .highlight-concept { font-weight: 600; text-decoration: underline; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>HKDSE Economics Minimum Wage Simulator</h1>
-    <div class="subtitle">An interactive laboratory combining graphical price floor mechanics with the historical progression of Hong Kong Statutory Minimum Wage (Cap. 608).</div>
+    <div class="subtitle">An interactive laboratory combining graphical price floor mechanics with the historical timeline, policy motives, and socio-economic priorities of Hong Kong.</div>
     
     <div class="control-panel">
         <div>
@@ -107,8 +114,19 @@
     </div>
 
     <div class="history-section">
-        <h2>History & Archive of Minimum Wages in Hong Kong</h2>
+        <h2>Socio-Economic Rationale & Statutory History Archive</h2>
         
+        <div class="values-education-grid">
+            <div class="value-card edu">
+                <h4>🌱 Values Education Perspective</h4>
+                Focuses on the core values of <b>Human Dignity, Mutual Help, and Social Justice</b>. By establishing a legal wage floor, the policy ensures grassroot workers receive equitable compensation that respects their work contribution, fosters self-reliance, and enhances families' quality of life.
+            </div>
+            <div class="value-card sec">
+                <h4>🛡️ National Security (Economic & Social Security)</h4>
+                Extreme income polarization can trigger social frictions and labor unrest. Safeguarding low-income workers protects <b>Social Stability</b> and <b>Economic Security</b>, ensuring the operational resilience of core domestic industries and mitigating systemic risks.
+            </div>
+        </div>
+
         <div class="pre-legislation-card">
             <h4>The Pre-Legislation Era (Before 2011)</h4>
             <ul>
@@ -128,65 +146,65 @@
             <table class="timeline-table" id="historyTable">
                 <thead>
                     <tr>
-                        <th>Effective Date</th>
-                        <th>Hourly Rate (HKD)</th>
-                        <th>Change</th>
+                        <th style="width: 120px;">Effective Date</th>
+                        <th style="width: 110px;">Hourly Rate</th>
+                        <th style="width: 250px;">Underlying Policy Motive & Value Concept</th>
                         <th>Context / Economic Environment</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr data-wage="43.1">
                         <td><b>May 1, 2026</b></td>
-                        <td><span class="rate-tag">$43.10</span></td>
-                        <td><span class="change-tag change-up">+$1.00 (+2.4%)</span></td>
+                        <td><span class="rate-tag">$43.10</span><span class="change-tag change-up">+$1.00 (+2.4%)</span></td>
+                        <td><span class="highlight-concept">Institutional Stability</span>: Optimizes income predictability through a formulaic annual review mechanism.</td>
                         <td>Current approved statutory rate managed via the modern formula framework.</td>
                     </tr>
                     <tr data-wage="42.1">
                         <td>May 1, 2025</td>
-                        <td><span class="rate-tag">$42.10</span></td>
-                        <td><span class="change-tag change-up">+$2.10 (+5.2%)</span></td>
+                        <td><span class="rate-tag">$42.10</span><span class="change-tag change-up">+$2.10 (+5.2%)</span></td>
+                        <td><span class="highlight-concept">Proactive Governance</span>: Transitions away from biennial delays to better match living costs.</td>
                         <td>First initialization layer using the shifting annual formula-based review metrics.</td>
                     </tr>
                     <tr data-wage="40.0">
                         <td>May 1, 2023</td>
-                        <td><span class="rate-tag">$40.00</span></td>
-                        <td><span class="change-tag change-up">+$2.50 (+6.7%)</span></td>
+                        <td><span class="rate-tag">$40.00</span><span class="change-tag change-up">+$2.50 (+6.7%)</span></td>
+                        <td><span class="highlight-concept">Social Justice</span>: Resumes purchasing power catch-up for frontline households post-epidemic.</td>
                         <td><b>Our Baseline Market Equilibrium ($40).</b> Increases restarted as post-pandemic retail sectors adjusted.</td>
                     </tr>
                     <tr data-wage="37.5">
                         <td>May 1, 2021</td>
-                        <td><span class="rate-tag">$37.50</span></td>
-                        <td><span class="change-tag change-flat">$0.00 (Frozen)</span></td>
+                        <td><span class="rate-tag">$37.50</span><span class="change-tag change-flat">$0.00 (Frozen)</span></td>
+                        <td><span class="highlight-concept">Economic Security</span>: Avoids business bankruptcies and severe job losses during extreme crisis.</td>
                         <td>First historical freeze. Held stable to minimize layoffs during structural COVID downturns.</td>
                     </tr>
                     <tr data-wage="37.5">
                         <td>May 1, 2019</td>
-                        <td><span class="rate-tag">$37.50</span></td>
-                        <td><span class="change-tag change-up">+$3.00 (+8.7%)</span></td>
+                        <td><span class="rate-tag">$37.50</span><span class="change-tag change-up">+$3.00 (+8.7%)</span></td>
+                        <td><span class="highlight-concept">Sharing Fruit of Growth</span>: Distributes wealth gained during prosperous cycles to the workforce.</td>
                         <td>Strong macroeconomic conditions allowed for a notable dollar adjustment.</td>
                     </tr>
                     <tr data-wage="34.5">
                         <td>May 1, 2017</td>
-                        <td><span class="rate-tag">$34.50</span></td>
-                        <td><span class="change-tag change-up">+$2.00 (+6.2%)</span></td>
+                        <td><span class="rate-tag">$34.50</span><span class="change-tag change-up">+$2.00 (+6.2%)</span></td>
+                        <td><span class="highlight-concept">Human Dignity</span>: Preserves a baseline living standard against ongoing rent and food cost growth.</td>
                         <td>Steady baseline updates aiming to secure low-income frontline household purchasing power.</td>
                     </tr>
                     <tr data-wage="32.5">
                         <td>May 1, 2015</td>
-                        <td><span class="rate-tag">$32.50</span></td>
-                        <td><span class="change-tag change-up">+$2.50 (+8.3%)</span></td>
+                        <td><span class="rate-tag">$32.50</span><span class="change-tag change-up">+$2.50 (+8.3%)</span></td>
+                        <td><span class="highlight-concept">Mutual Help</span>: Balances enterprise affordability with workers' baseline needs during steady growth.</td>
                         <td>Supported by continuous positive growth trends across domestic logistics and service industries.</td>
                     </tr>
                     <tr data-wage="30.0">
                         <td>May 1, 2013</td>
-                        <td><span class="rate-tag">$30.00</span></td>
-                        <td><span class="change-tag change-up">+$2.00 (+7.1%)</span></td>
+                        <td><span class="rate-tag">$30.00</span><span class="change-tag change-up">+$2.00 (+7.1%)</span></td>
+                        <td><span class="highlight-concept">Inflation Mitigation</span>: Prevents low-wage exploitation as consumer prices escalate.</td>
                         <td>First cyclical updates under the original biennial assessment strategy to counteract inflation.</td>
                     </tr>
                     <tr data-wage="28.0">
                         <td>May 1, 2011</td>
-                        <td><span class="rate-tag">$28.00</span></td>
-                        <td><span class="change-tag change-flat">Initial Rate</span></td>
+                        <td><span class="rate-tag">$28.00</span><span class="change-tag change-flat">Initial Rate</span></td>
+                        <td><span class="highlight-concept">Social Harmony</span>: Eradicates working poverty to minimize structural socio-political friction.</td>
                         <td>Official operational implementation of the baseline wage floor system on Labour Day.</td>
                     </tr>
                 </tbody>
