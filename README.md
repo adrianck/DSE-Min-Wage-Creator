@@ -67,12 +67,22 @@
         .opt-row { background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px 14px; border-radius: 6px; font-size: 13.5px; cursor: pointer; transition: all 0.2s; }
         .opt-row:hover { background: #f1f5f9; border-color: #cbd5e1; }
         
-        /* Solution Dropdowns */
+        /* Solution Dropdowns and Mini Canvases */
         details { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 10px; overflow: hidden; }
         summary { font-weight: bold; padding: 10px 14px; cursor: pointer; background: #e2e8f0; color: #334155; font-size: 13px; outline: none; }
-        .details-content { padding: 14px; font-size: 13.5px; line-height: 1.6; color: #334155; border-top: 1px solid #cbd5e1; }
+        .details-content { padding: 14px; font-size: 13.5px; line-height: 1.6; color: #334155; border-top: 1px solid #cbd5e1; display: flex; flex-direction: row; gap: 20px; align-items: flex-start; }
+        .details-text { flex: 1; }
+        .quiz-canvas { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; width: 240px; height: 180px; flex-shrink: 0; }
         .ans-pill { display: inline-block; background: #16a34a; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; margin-bottom: 8px; }
         
+        @media (max-width: 768px) {
+            .control-panel { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .workspace-layout { grid-template-columns: 1fr; }
+            .details-content { flex-direction: column; }
+            .quiz-canvas { width: 100%; height: 200px; }
+        }
+
         .text-gain { color: #059669; font-weight: bold; }
         .text-loss { color: #dc2626; font-weight: bold; }
         .highlight-concept { font-weight: 600; text-decoration: underline; }
@@ -233,7 +243,7 @@
 
     <div class="quiz-section">
         <h2>🔥 High-Distinction Diagnostic Exam Suite (HKDSE Level)</h2>
-        <div class="quiz-desc">Test your understanding with 5 of the most conceptually challenging multiple-choice questions regarding price floors and dynamic market interference frameworks.</div>
+        <div class="quiz-desc">Test your understanding with 5 of the most conceptually challenging multiple-choice questions regarding price floors and dynamic market interference frameworks. Expand each solution to view its dedicated analytical diagram.</div>
 
         <div class="quiz-card">
             <div class="q-number">QUESTION 1 (Elasticity & Revenue Manipulations)</div>
@@ -247,41 +257,47 @@
                 <div class="opt-row">C. (2) and (3) only</div>
                 <div class="opt-row">D. (1), (2) and (3)</div>
             </div>
-            <details>
-                <summary>View Solution & Economic Proof</summary>
+            <details data-quiz="1">
+                <summary>View Solution & Embedded Diagram</summary>
                 <div class="details-content">
-                    <div class="ans-pill">CORRECT ANSWER: A</div><br>
-                    <b>Economic Proof:</b><br>
-                    • <b>Statement (1) is correct:</b> Raising an already effective price floor shifts the regulatory price line further up, moving the demand intercept leftward ($Q_d \downarrow$) and the supply intercept rightward ($Q_s \uparrow$). The market surplus/unemployment gap ($Q_s - Q_d$) must widen.<br>
-                    • <b>Statement (2) is correct:</b> When labor demand is price inelastic ($E_d < 1$), the percentage increase in the hourly rate ($W \uparrow$) dominates the percentage drop in the actual headcount employed ($Q_d \downarrow$). Thus, Total Wage Revenue ($W \times Q_d$) expands.<br>
-                    • <b>Statement (3) is incorrect:</b> The triangle of deadweight loss measures lost mutually beneficial trade opportunities. Shifting the wage ceiling further away from competitive equilibrium contracts the actual quantity transacted even more, causing the deadweight loss triangle to expand, not contract.
+                    <div class="details-text">
+                        <div class="ans-pill">CORRECT ANSWER: A</div><br>
+                        <b>Economic Explanation:</b><br>
+                        • <b>Statement (1) is correct:</b> As seen in the diagram, raising the price floor from W<sub>min1</sub> to W<sub>min2</sub> moves the quantity demanded leftwards (Q<sub>d1</sub> to Q<sub>d2</sub>) and quantity supplied rightwards (Q<sub>s1</sub> to Q<sub>s2</sub>), expanding the involuntary unemployment gap.<br>
+                        • <b>Statement (2) is correct:</b> Because demand is highly inelastic (steep curve), the gain in wage revenue from the remaining workers (Area Gain) is significantly larger than the revenue loss from laid-off workers (Area Loss), increasing total wage earnings.<br>
+                        • <b>Statement (3) is incorrect:</b> The deadweight loss triangle expands outwards as actual market transactions are further restricted from equilibrium.
+                    </div>
+                    <canvas id="quizCanvas1" class="quiz-canvas" width="240" height="180"></canvas>
                 </div>
             </details>
         </div>
 
         <div class="quiz-card">
             <div class="q-number">QUESTION 2 (Simultaneous Shocks & Effectiveness Thresholds)</div>
-            <div class="q-text">An effective statutory minimum wage is established in an industry. Simultaneously, an structural economic recession decreases the consumer demand for the industry's output, while a concurrent revision in immigration policy results in a massive influx of low-skilled foreign workers. Holding the legal wage rate constant, how will the involuntary labor unemployment space change?</div>
+            <div class="q-text">An effective statutory minimum wage is established in an industry. Simultaneously, a structural economic recession decreases the consumer demand for the industry's output, while a concurrent revision in immigration policy results in a massive influx of low-skilled foreign workers. Holding the legal wage rate constant, how will the involuntary labor unemployment space change?</div>
             <div class="q-options">
                 <div class="opt-row">A. It will decrease because firms lay off workers to preserve baseline capital.</div>
                 <div class="opt-row">B. It will increase because labor demand shifts left while labor supply shifts right.</div>
                 <div class="opt-row">C. It will remain unchanged because the statutory rate acts as a structural anchor.</div>
                 <div class="opt-row">D. It may increase or decrease, depending entirely on the price elasticity of supply.</div>
             </div>
-            <details>
-                <summary>View Solution & Economic Proof</summary>
+            <details data-quiz="2">
+                <summary>View Solution & Embedded Diagram</summary>
                 <div class="details-content">
-                    <div class="ans-pill">CORRECT ANSWER: B</div><br>
-                    <b>Economic Proof:</b><br>
-                    • Labor demand ($D$) is a derived demand from product markets. The industry recession causes product demand to fall, shifting the labor demand curve to the left ($D_1 \rightarrow D_2$). At the fixed minimum wage, $Q_d$ contracts significantly.<br>
-                    • The massive immigration influx increases the quantity of active job seekers, shifting the labor supply curve to the right ($S_1 \rightarrow S_2$). At the fixed minimum wage, $Q_s$ expands.<br>
-                    • Since involuntary unemployment under a price floor is defined algebraically as $Q_s - Q_d$, an expansion of $Q_s$ combined with a contraction of $Q_d$ guarantees that the structural unemployment gap must widen.
+                    <div class="details-text">
+                        <div class="ans-pill">CORRECT ANSWER: B</div><br>
+                        <b>Economic Explanation:</b><br>
+                        • The product market recession reduces derived labor demand, causing a leftward shift from D<sub>1</sub> to D<sub>2</sub>. This decreases quantity demanded at the minimum wage line to Q<sub>d2</sub>.<br>
+                        • The immigration influx shifts labor supply rightward from S<sub>1</sub> to S<sub>2</sub>, extending quantity supplied at the minimum wage line to Q<sub>s2</sub>.<br>
+                        • As illustrated, the structural surplus gap widens substantially from the original gap (Q<sub>s1</sub> - Q<sub>d1</sub>) to the new expanded gap (Q<sub>s2</sub> - Q<sub>d2</sub>).
+                    </div>
+                    <canvas id="quizCanvas2" class="quiz-canvas" width="240" height="180"></canvas>
                 </div>
             </details>
         </div>
 
         <div class="quiz-card">
-            <div class="q-number">QUESTION 3 (Cross-Market Complements & Subtitutes)</div>
+            <div class="q-number">QUESTION 3 (Cross-Market Interdependence)</div>
             <div class="q-text">Assume low-skilled human cashiers and automated self-service kiosks are strong substitutes in the retail sector. If an effective statutory minimum wage is introduced for human cashiers, what will be the resulting market impact on automated self-service kiosks?</div>
             <div class="q-options">
                 <div class="opt-row">A. Demand for kiosks will increase, leading to a higher equilibrium price for kiosks.</div>
@@ -289,41 +305,47 @@
                 <div class="opt-row">C. Quantity transacted of kiosks will decrease due to the deadweight loss generated in the human cashier market.</div>
                 <div class="opt-row">D. Equilibrium price of kiosks will drop as kiosks become relatively more expensive to operate.</div>
             </div>
-            <details>
-                <summary>View Solution & Economic Proof</summary>
+            <details data-quiz="3">
+                <summary>View Solution & Embedded Diagram</summary>
                 <div class="details-content">
-                    <div class="ans-pill">CORRECT ANSWER: A</div><br>
-                    <b>Economic Proof:</b><br>
-                    • Imposing an effective minimum wage increases the actual per-hour cost of hiring low-skilled human cashiers. This represents a price increase for human labor.<br>
-                    • Since human cashiers and automated kiosks are substitutes, rational retail corporations will substitute away from human labor and toward automation infrastructure to optimize profit margins.<br>
-                    • Consequently, the market demand curve for kiosks shifts to the right. An increase in demand for kiosks leads to a higher equilibrium price and quantity transacted within the kiosk market.
+                    <div class="details-text">
+                        <div class="ans-pill">CORRECT ANSWER: A</div><br>
+                        <b>Economic Explanation:</b><br>
+                        • Imposing an effective minimum wage increases the hiring cost of human cashiers, making them relatively more expensive.<br>
+                        • Because automated kiosks are substitutes, firms reallocate capital away from human workers. This directly increases the market demand for self-service kiosks, shifting the demand curve rightward from D<sub>1</sub> to D<sub>2</sub>.<br>
+                        • As the kiosk market diagram illustrates, this shift drives up both the equilibrium price (P<sub>e1</sub> to P<sub>e2</sub>) and quantity of kiosks transacted.
+                    </div>
+                    <canvas id="quizCanvas3" class="quiz-canvas" width="240" height="180"></canvas>
                 </div>
             </details>
         </div>
 
         <div class="quiz-card">
             <div class="q-number">QUESTION 4 (Ineffective vs Effective Boundary Shifts)</div>
-            <div class="q-text">The government maintains a statutory minimum wage line at $40. Due to a sudden global technological surge, the marginal productivity of labor rises substantially, causing a massive rightward shift in the market labor demand curve ($D$). If the new natural market clearing wage shifts from $38 to $45, what happens to the actual market wage rate and deadweight loss?</div>
+            <div class="q-text">The government maintains a statutory minimum wage line at $40. Due to a sudden global technological surge, the marginal productivity of labor rises substantially, causing a massive rightward shift in the market labor demand curve (D). If the new natural market clearing wage shifts from $38 to $45, what happens to the actual market wage rate and deadweight loss?</div>
             <div class="q-options">
                 <div class="opt-row">A. The wage rate remains at $40; deadweight loss increases.</div>
                 <div class="opt-row">B. The wage rate rises to $45; deadweight loss drops to zero.</div>
                 <div class="opt-row">C. The wage rate rises to $45; deadweight loss increases because the gap from $40 has expanded.</div>
                 <div class="opt-row">D. The market fails to clear because transactions above $40 are blocked by price floor rules.</div>
             </div>
-            <details>
-                <summary>View Solution & Economic Proof</summary>
+            <details data-quiz="4">
+                <summary>View Solution & Embedded Diagram</summary>
                 <div class="details-content">
-                    <div class="ans-pill">CORRECT ANSWER: B</div><br>
-                    <b>Economic Proof:</b><br>
-                    • Initially, the baseline equilibrium wage ($38) was below the minimum wage ($40), meaning the floor was **effective** and generated a deadweight loss.<br>
-                    • After the labor demand shift, the new market clearing equilibrium wage becomes $45. Since the statutory minimum wage line ($40) is now *below* the new equilibrium wage ($45), the price floor becomes **ineffective**.<br>
-                    • Under an ineffective price floor, market forces are entirely free to pull the transaction rate up to its natural market clearing level ($45). Because the market clears naturally at equilibrium without quantity rationing, allocative efficiency is restored, and deadweight loss falls to zero.
+                    <div class="details-text">
+                        <div class="ans-pill">CORRECT ANSWER: B</div><br>
+                        <b>Economic Explanation:</b><br>
+                        • Initially, the baseline equilibrium wage ($38) was lower than the statutory minimum wage floor ($40), rendering the regulation effective and binding.<br>
+                        • The rightward shift in labor demand to D<sub>2</sub> relocates the market intersection up to a natural clearing level of $45.<br>
+                        • Because the statutory floor ($40) is now below the equilibrium price ($45), the regulation turns completely ineffective. Market prices clear naturally at $45, eliminating allocative inefficiencies and dropping deadweight loss to zero.
+                    </div>
+                    <canvas id="quizCanvas4" class="quiz-canvas" width="240" height="180"></canvas>
                 </div>
             </details>
         </div>
 
         <div class="quiz-card">
-            <div class="q-number">QUESTION 5 (Total Expenditure Mathematical Constraints)</div>
+            <div class="q-number">QUESTION 5 (Perfect Elasticity Vector Constraints)</div>
             <div class="q-text">If a labor market has a perfectly vertical (perfectly inelastic) labor supply curve and an effective statutory minimum wage is introduced, which of the following is an absolute certainty regarding market metrics?</div>
             <div class="q-options">
                 <div class="opt-row">A. Deadweight loss will be maximized because the entire supply curve is blocked.</div>
@@ -331,14 +353,17 @@
                 <div class="opt-row">C. The actual quantity of labor employed is determined entirely by the labor demand curve at the minimum wage rate.</div>
                 <div class="opt-row">D. Total wage earnings in the market will decrease regardless of the elasticity of demand.</div>
             </div>
-            <details>
-                <summary>View Solution & Economic Proof</summary>
+            <details data-quiz="5">
+                <summary>View Solution & Embedded Diagram</summary>
                 <div class="details-content">
-                    <div class="ans-pill">CORRECT ANSWER: C</div><br>
-                    <b>Economic Proof:</b><br>
-                    • When any effective price floor is imposed above the market equilibrium, the quantity transacted is always determined by the short side of the market (the binding side). Because $W_{min} > W_e$, quantity demanded ($Q_d$) drops below equilibrium, while quantity supplied ($Q_s$) is at its full inelastic capacity.<br>
-                    • Since $Q_d < Q_s$, buyers (employers) dictate the actual transaction headcount. Hence, employment is completely determined by the coordinates on the labor demand curve at that statutory rate, proving **C** correct.<br>
-                    • Note on B: Involuntary unemployment will exist because at $W_{min}$, the quantity of labor supplied (which matches the fixed pool) exceeds the shrinking quantity demanded.
+                    <div class="details-text">
+                        <div class="ans-pill">CORRECT ANSWER: C</div><br>
+                        <b>Economic Explanation:</b><br>
+                        • When an effective price control forces the market out of equilibrium, the transacted quantity is governed by the short side of the market. Since W<sub>min</sub> exceeds equilibrium, quantity demanded is smaller than quantity supplied.<br>
+                        • As shown in the diagram, even though supply is completely vertical (constant pool), firms restrict hiring to the demand curve boundary. The actual volume of employment drops down to match Q<sub>d</sub> exactly, confirming statement C.<br>
+                        • Involuntary unemployment exists as the gap between the vertical supply line and Q<sub>d</sub>.
+                    </div>
+                    <canvas id="quizCanvas5" class="quiz-canvas" width="240" height="180"></canvas>
                 </div>
             </details>
         </div>
@@ -364,7 +389,6 @@
     const analysisText = document.getElementById('analysisText');
     const historyTableRows = document.querySelectorAll('#historyTable tbody tr');
 
-    // Standard Math Baseline References
     const We_orig = 40.0;
     const Qe_orig = 100;
 
@@ -376,7 +400,6 @@
         
         wageVal.innerText = W_floor.toFixed(1);
 
-        // Map Curve Shifts to Intercept Multipliers
         let dShift = 0;
         if (dShock === 'increase') dShift = 30;
         if (dShock === 'decrease') dShift = -30;
@@ -385,11 +408,9 @@
         if (sShock === 'increase') sShift = 30;
         if (sShock === 'decrease') sShift = -30;
 
-        // Establish Elasticity Coefficients
         let slopeD = elasticity === 'inelastic' ? 1.5 : 4.0;
         let slopeS = 2.0;
 
-        // Compute new equilibrium equilibrium coordinates via simultaneous math system
         const We_new = We_orig + (dShift - sShift) / (slopeD + slopeS);
         const Qe_new = Qe_orig + dShift - slopeD * (We_new - We_orig);
 
@@ -403,7 +424,6 @@
             Qs = Qe_new + slopeS * (W_floor - We_new);
         }
 
-        // Clamp values to prevent negative rendering bounds
         if (Qd < 0) Qd = 0;
 
         const actualEmp = isEffective ? Qd : Qe_new;
@@ -411,10 +431,8 @@
         const totalEarnings = (isEffective ? W_floor : We_new) * actualEmp;
         const baselineRevenue = We_new * Qe_new;
 
-        // Height variation calculation for deadweight loss
         const dwl = isEffective ? 0.5 * (W_floor - (We_new - (Qe_new - Qd) / slopeS)) * (Qe_new - Qd) : 0;
 
-        // Visual Data Card population
         statEmp.innerText = actualEmp.toFixed(1);
         statUnemp.innerText = surplus.toFixed(1);
         statEarnings.innerText = '$' + Math.round(totalEarnings);
@@ -466,7 +484,6 @@
             `;
         }
 
-        // Row highlighting filter
         historyTableRows.forEach(row => {
             const rowWage = parseFloat(row.getAttribute('data-wage'));
             if (Math.abs(W_floor - rowWage) < 0.05) {
@@ -476,7 +493,6 @@
             }
         });
 
-        // --- GRAPH CANVAS RENDERING PIPELINE ---
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const padding = 60;
         const graphWidth = canvas.width - padding * 2;
@@ -485,15 +501,11 @@
         function getX(q) { return padding + (q / 180) * graphWidth; }
         function getY(w) { return canvas.height - padding - (w / 75) * graphHeight; }
 
-        // Render Geometry Box Shading Coordinates
         if (isEffective) {
-            // Gain Box (Green)
             ctx.fillStyle = 'rgba(16, 185, 129, 0.18)';
             ctx.fillRect(getX(0), getY(W_floor), getX(Qd) - getX(0), getY(We_new) - getY(W_floor));
-            // Loss Box (Red)
             ctx.fillStyle = 'rgba(239, 68, 68, 0.18)';
             ctx.fillRect(getX(Qd), getY(We_new), getX(Qe_new) - getX(Qd), getY(0) - getY(We_new));
-            // Deadweight Loss Triangle (Orange)
             ctx.fillStyle = 'rgba(249, 115, 22, 0.25)';
             ctx.beginPath();
             ctx.moveTo(getX(Qd), getY(W_floor));
@@ -502,12 +514,10 @@
             ctx.closePath();
             ctx.fill();
         } else {
-            // Maintain static baseline reference rect framework (Gray)
             ctx.fillStyle = 'rgba(148, 163, 184, 0.15)';
             ctx.fillRect(getX(0), getY(We_new), getX(Qe_new) - getX(0), getY(0) - getY(We_new));
         }
 
-        // Draw Axes Vector Paths
         ctx.beginPath(); ctx.strokeStyle = '#334155'; ctx.lineWidth = 2;
         ctx.moveTo(padding, padding); ctx.lineTo(padding, canvas.height - padding);
         ctx.lineTo(canvas.width - padding, canvas.height - padding); ctx.stroke();
@@ -516,7 +526,6 @@
         ctx.fillText('Wage Rate ($)', padding - 50, padding - 15);
         ctx.fillText('Quantity of Labor (Q)', canvas.width - padding - 60, canvas.height - padding + 40);
 
-        // Universal Curve Line Engine
         function drawCurve(x1, y1, x2, y2, color, label, isDashed = false) {
             ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = isDashed ? 1.5 : 3;
             if (isDashed) ctx.setLineDash([4, 4]);
@@ -525,24 +534,19 @@
             ctx.fillText(label, getX(x2) + 5, getY(y2) + 4);
         }
 
-        // Render D1 Baseline if shifted
         if (dShock !== 'none') {
             drawCurve(Qe_orig - slopeD * (65 - We_orig), 65, Qe_orig - slopeD * (15 - We_orig), 15, '#93c5fd', 'D1', true);
         }
-        // Render S1 Baseline if shifted
         if (sShock !== 'none') {
             drawCurve(Qe_orig + slopeS * (15 - We_orig), 15, Qe_orig + slopeS * (65 - We_orig), 65, '#fdbb2d', 'S1', true);
         }
 
-        // Draw Active Shifted Demand Curve (D)
         const d_center = Qe_orig + dShift;
         drawCurve(d_center - slopeD * (65 - We_orig), 65, d_center - slopeD * (15 - We_orig), 15, '#2563eb', dShock !== 'none' ? 'D2' : 'D');
 
-        // Draw Active Shifted Supply Curve (S)
         const s_center = Qe_orig + sShift;
         drawCurve(s_center + slopeS * (15 - We_orig), 15, s_center + slopeS * (65 - We_orig), 65, '#ea580c', sShock !== 'none' ? 'S2' : 'S');
 
-        // Render Equilibrium Alignment Track Lines
         ctx.setLineDash([3, 3]); ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(getX(0), getY(We_new)); ctx.lineTo(getX(Qe_new), getY(We_new)); ctx.stroke();
         ctx.beginPath(); ctx.moveTo(getX(Qe_new), getY(0)); ctx.lineTo(getX(Qe_new), getY(We_new)); ctx.stroke();
@@ -552,7 +556,6 @@
         ctx.fillText(`W_e ($${We_new.toFixed(1)})`, padding - 55, getY(We_new) + 4);
         ctx.fillText(`Q_e (${Qe_new.toFixed(1)})`, getX(Qe_new) - 20, canvas.height - padding + 18);
 
-        // Imposed Legislative Price Limit Constraint Line
         ctx.beginPath();
         ctx.strokeStyle = isEffective ? '#dc2626' : '#64748b';
         ctx.lineWidth = isEffective ? 2.5 : 1.5;
@@ -562,7 +565,6 @@
         ctx.fillText('W_min ($' + W_floor.toFixed(1) + ')', getX(165) - 95, getY(W_floor) - 6);
 
         if (isEffective) {
-            // Track projection drops
             ctx.setLineDash([2, 2]); ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 1;
             ctx.beginPath(); ctx.moveTo(getX(Qd), getY(W_floor)); ctx.lineTo(getX(Qd), getY(0)); ctx.stroke();
             ctx.beginPath(); ctx.moveTo(getX(Qs), getY(W_floor)); ctx.lineTo(getX(Qs), getY(0)); ctx.stroke();
@@ -572,7 +574,6 @@
             ctx.fillText('Q_d', getX(Qd) - 8, canvas.height - padding + 18);
             ctx.fillText('Q_s', getX(Qs) - 8, canvas.height - padding + 18);
 
-            // Node Endpoints
             ctx.beginPath(); ctx.fillStyle = '#ef4444';
             ctx.arc(getX(Qd), getY(W_floor), 4.5, 0, 2 * Math.PI);
             ctx.arc(getX(Qs), getY(W_floor), 4.5, 0, 2 * Math.PI);
@@ -580,7 +581,108 @@
         }
     }
 
-    // Attach Row Click Sinks
+    // UNIQUE RENDERING SUITE FOR EMBEDDED DIAGRAMS
+    function drawBaseAxes(c, p) {
+        c.beginPath(); c.strokeStyle = '#475569'; c.lineWidth = 1.5;
+        c.moveTo(p, p); c.lineTo(p, 180 - p); c.lineTo(240 - p, 180 - p); c.stroke();
+    }
+
+    function renderQuizDiagrams() {
+        const p = 25;
+        const w = 240, h = 180;
+        const gW = w - p * 2, gH = h - p * 2;
+
+        const getX = (v) => p + (v / 100) * gW;
+        const getY = (v) => h - p - (v / 100) * gH;
+
+        // --- DIAGRAM 1: ELASTICITY & PREMIUM ---
+        const c1 = document.getElementById('quizCanvas1').getContext('2d');
+        drawBaseAxes(c1, p);
+        // Inelastic Demand (Steep)
+        c1.beginPath(); c1.strokeStyle = '#2563eb'; c1.lineWidth = 2;
+        c1.moveTo(getX(20), getY(85)); c1.lineTo(getX(60), getY(15)); c1.stroke();
+        c1.fillStyle = '#2563eb'; c1.fillText('D', getX(62), getY(15));
+        // Supply
+        c1.beginPath(); c1.strokeStyle = '#ea580c'; c1.moveTo(getX(20), getY(20)); c1.lineTo(getX(70), getY(75)); c1.stroke();
+        // Floor lines
+        c1.strokeStyle = '#dc2626'; c1.setLineDash([2,2]);
+        c1.beginPath(); c1.moveTo(p, getY(55)); c1.lineTo(getX(80), getY(55)); c1.stroke(); // Floor 1
+        c1.beginPath(); c1.moveTo(p, getY(70)); c1.lineTo(getX(80), getY(70)); c1.stroke(); // Floor 2
+        c1.setLineDash([]); c1.fillStyle = '#dc2626'; c1.font = '9px sans-serif';
+        c1.fillText('W_min2', w - p - 35, getY(73));
+        c1.fillText('W_min1', w - p - 35, getY(51));
+        // Fill Gain Area Green
+        c1.fillStyle = 'rgba(16, 185, 129, 0.3)';
+        c1.fillRect(getX(29), getY(70), getX(37)-getX(29), getY(55)-getY(70));
+        c1.fillStyle = '#059669'; c1.fillText('Gain', getX(10), getY(64));
+
+        // --- DIAGRAM 2: DUAL SHIFT ---
+        const c2 = document.getElementById('quizCanvas2').getContext('2d');
+        drawBaseAxes(c2, p);
+        // Demand 1 and Demand 2
+        c2.lineWidth = 1.5;
+        c2.beginPath(); c2.strokeStyle = '#93c5fd'; c2.moveTo(getX(20), getY(80)); c2.lineTo(getX(70), getY(30)); c2.stroke();
+        c2.beginPath(); c2.strokeStyle = '#2563eb'; c2.moveTo(getX(5), getY(70)); c2.lineTo(getX(55), getY(20)); c2.stroke();
+        c2.fillText('D2', getX(57), getY(20));
+        // Supply 1 and Supply 2
+        c2.beginPath(); c2.strokeStyle = '#fdbb2d'; c2.moveTo(getX(15), getY(25)); c2.lineTo(getX(65), getY(75)); c2.stroke();
+        c2.beginPath(); c2.strokeStyle = '#ea580c'; c2.moveTo(getX(35), getY(25)); c2.lineTo(getX(85), getY(75)); c2.stroke();
+        c2.fillText('S2', getX(87), getY(75));
+        // Constant Wage line
+        c2.strokeStyle = '#dc2626'; c2.beginPath(); c2.moveTo(p, getY(60)); c2.lineTo(w-p, getY(60)); c2.stroke();
+        c2.fillStyle = '#dc2626'; c2.fillText('W_min', p+5, getY(64));
+        // Mark gap widening
+        c2.fillStyle = 'rgba(239, 68, 68, 0.2)';
+        c2.fillRect(getX(15), getY(60), getX(70)-getX(15), 6);
+
+        // --- DIAGRAM 3: CROSS SECTOR INTERDEPENDENCE ---
+        const c3 = document.getElementById('quizCanvas3').getContext('2d');
+        drawBaseAxes(c3, p);
+        c3.beginPath(); c3.strokeStyle = '#2563eb'; c3.setLineDash([2,2]);
+        c3.moveTo(getX(15), getY(65)); c3.lineTo(getX(65), getY(15)); c3.stroke(); // D1
+        c3.setLineDash([]);
+        c3.beginPath(); c3.moveTo(getX(30), getY(75)); c3.lineTo(getX(80), getY(25)); c3.stroke(); // D2
+        c3.fillText('D2', getX(82), getY(25));
+        c3.beginPath(); c3.strokeStyle = '#ea580c'; c3.moveTo(getX(15), getY(20)); c3.lineTo(getX(75), getY(80)); c3.stroke();
+        c3.fillText('S', getX(77), getY(80));
+        // Project Price increases
+        c3.strokeStyle = '#94a3b8'; c3.setLineDash([2,2]);
+        c3.beginPath(); c3.moveTo(p, getY(46)); c3.lineTo(getX(41), getY(46)); c3.stroke();
+        c3.beginPath(); c3.moveTo(p, getY(56)); c3.lineTo(getX(51), getY(56)); c3.stroke();
+        c3.fillStyle = '#1e293b'; c3.fillText('P2', p-16, getY(56));
+
+        // --- DIAGRAM 4: BOUNDARY SHIFT INEFFECTIVE ---
+        const c4 = document.getElementById('quizCanvas4').getContext('2d');
+        drawBaseAxes(c4, p);
+        c4.beginPath(); c4.strokeStyle = '#93c5fd'; c4.setLineDash([2,2]);
+        c4.moveTo(getX(15), getY(70)); c4.lineTo(getX(65), getY(20)); c4.stroke(); // D1
+        c4.setLineDash([]);
+        c4.beginPath(); c4.strokeStyle = '#2563eb'; c4.moveTo(getX(35), getY(85)); c4.lineTo(getX(85), getY(35)); c4.stroke(); // D2
+        c4.fillText('D2', getX(87), getY(35));
+        c4.beginPath(); c4.strokeStyle = '#ea580c'; c4.moveTo(getX(15), getY(25)); c4.lineTo(getX(75), getY(85)); c4.stroke();
+        // Floor Line below new intersection
+        c4.strokeStyle = '#64748b'; c4.beginPath(); c4.moveTo(p, getY(42)); c4.lineTo(w-p, getY(42)); c4.stroke();
+        c4.fillStyle = '#64748b'; c4.fillText('W_floor ($40)', p+5, getY(46));
+        c4.fillStyle = '#2563eb'; c4.fillText('E2 ($45)', getX(58), getY(63));
+
+        // --- DIAGRAM 5: VERTICAL SUPPLY ---
+        const c5 = document.getElementById('quizCanvas5').getContext('2d');
+        drawBaseAxes(c5, p);
+        // Vertical Supply Curve
+        c5.beginPath(); c5.strokeStyle = '#ea580c'; c5.lineWidth = 3;
+        c5.moveTo(getX(50), getY(15)); c5.lineTo(getX(50), getY(85)); c5.stroke();
+        c5.fillText('S', getX(48), getY(89));
+        // Demand
+        c5.beginPath(); c5.strokeStyle = '#2563eb'; c5.lineWidth = 2;
+        c5.moveTo(getX(15), getY(80)); c5.lineTo(getX(75), getY(20)); c5.stroke();
+        // Floor Line
+        c5.strokeStyle = '#dc2626'; c5.beginPath(); c2.lineWidth = 1.5;
+        c5.moveTo(p, getY(62)); c5.lineTo(w-p, getY(62)); c5.stroke();
+        // Intersection point Qd
+        c5.fillStyle = '#dc2626'; c5.beginPath(); c5.arc(getX(33), getY(62), 4, 0, 2*Math.PI); c5.fill();
+        c5.fillText('Q_d determines employment', getX(5), getY(72));
+    }
+
     historyTableRows.forEach(row => {
         row.addEventListener('click', () => {
             wageSlider.value = row.getAttribute('data-wage');
@@ -588,14 +690,14 @@
         });
     });
 
-    // Event Triggers
     wageSlider.addEventListener('input', drawMarket);
     elasticitySelect.addEventListener('change', drawMarket);
     demandShock.addEventListener('change', drawMarket);
     supplyShock.addEventListener('change', drawMarket);
     
-    // Initial Bootstrap
+    // Initial Boot frameworks
     drawMarket();
+    renderQuizDiagrams();
 </script>
 
 </body>
