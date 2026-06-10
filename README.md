@@ -30,9 +30,15 @@
         
         .workspace-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 25px; margin-bottom: 30px; align-items: start; }
         canvas { background: #ffffff; border: 1px solid #e2e8f0; width: 100%; height: auto; display: block; border-radius: 8px; }
-        .analysis-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; font-size: 13.5px; line-height: 1.6; height: 100%; box-sizing: border-box; }
-        .analysis-box h3 { margin-top: 0; color: #1e293b; font-size: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+        .analysis-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; font-size: 13.5px; line-height: 1.6; display: flex; flex-direction: column; gap: 20px; }
+        .analysis-box h3 { margin-top: 0; color: #1e293b; font-size: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 0; }
         
+        /* Formula Step Hub Style Block */
+        .formula-hub { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 15px; font-family: "Courier New", Courier, monospace; font-size: 12.5px; color: #0f172a; }
+        .formula-hub h4 { margin: 0 0 10px 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; color: #475569; font-size: 13px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 4px; }
+        .formula-line { margin-bottom: 8px; font-weight: bold; }
+        .formula-comment { color: #059669; font-weight: normal; font-family: -apple-system, sans-serif; display: block; margin-top: 1px; font-size: 11.5px; }
+
         /* Archive Section */
         .history-section { border-top: 2px dashed #e2e8f0; padding-top: 25px; margin-top: 10px; margin-bottom: 30px; }
         .history-section h2 { color: #0f172a; font-size: 19px; margin-top: 0; margin-bottom: 15px; }
@@ -147,8 +153,19 @@
         <canvas id="marketGraph" width="560" height="420"></canvas>
         
         <div class="analysis-box">
-            <h3>HKDSE Market Shock Evaluation</h3>
-            <div id="analysisText">Computing metrics...</div>
+            <div>
+                <h3>HKDSE Market Shock Evaluation</h3>
+                <div id="analysisText" style="margin-top:12px;">Computing metrics...</div>
+            </div>
+
+            <div class="formula-hub">
+                <h4>📝 Live Math Revision Notes & Workings</h4>
+                <div id="formulaEquil" class="formula-line"></div>
+                <div id="formulaEmp" class="formula-line"></div>
+                <div id="formulaUnemp" class="formula-line"></div>
+                <div id="formulaRev" class="formula-line"></div>
+                <div id="formulaDwl" class="formula-line"></div>
+            </div>
         </div>
     </div>
 
@@ -389,6 +406,13 @@
     const analysisText = document.getElementById('analysisText');
     const historyTableRows = document.querySelectorAll('#historyTable tbody tr');
 
+    // UI elements for live revision numbers
+    const fEquil = document.getElementById('formulaEquil');
+    const fEmp = document.getElementById('formulaEmp');
+    const fUnemp = document.getElementById('formulaUnemp');
+    const fRev = document.getElementById('formulaRev');
+    const fDwl = document.getElementById('formulaDwl');
+
     const We_orig = 40.0;
     const Qe_orig = 100;
 
@@ -416,14 +440,8 @@
 
         const isEffective = W_floor > We_new;
         
-        let Qd = Qe_new;
-        let Qs = Qe_new;
-
-        if (isEffective) {
-            Qd = Qe_new - slopeD * (W_floor - We_new);
-            Qs = Qe_new + slopeS * (W_floor - We_new);
-        }
-
+        let Qd = Qe_new - slopeD * (W_floor - We_new);
+        let Qs = Qe_new + slopeS * (W_floor - We_new);
         if (Qd < 0) Qd = 0;
 
         const actualEmp = isEffective ? Qd : Qe_new;
@@ -431,13 +449,30 @@
         const totalEarnings = (isEffective ? W_floor : We_new) * actualEmp;
         const baselineRevenue = We_new * Qe_new;
 
-        const dwl = isEffective ? 0.5 * (W_floor - (We_new - (Qe_new - Qd) / slopeS)) * (Qe_new - Qd) : 0;
+        const wSupplyAtQd = We_new - (Qe_new - actualEmp) / slopeS;
+        const dwl = isEffective ? 0.5 * (W_floor - wSupplyAtQd) * (Qe_new - actualEmp) : 0;
 
+        // Populate Dashboard UI
         statEmp.innerText = actualEmp.toFixed(1);
         statUnemp.innerText = surplus.toFixed(1);
         statEarnings.innerText = '$' + Math.round(totalEarnings);
         statDwl.innerText = isEffective ? '$' + Math.round(dwl) : '$0';
         
+        // --- POPULATE LIVE MATH REVISION HUB ---
+        fEquil.innerHTML = `Equilibrium (We): $${We_new.toFixed(1)}<span class="formula-comment">Market clearing point where Qd = Qs</span>`;
+        
+        if (isEffective) {
+            fEmp.innerHTML = `Employment (Qd): ${Qe_new.toFixed(1)} - ${slopeD} × (${W_floor.toFixed(1)} - ${We_new.toFixed(1)}) = ${actualEmp.toFixed(1)}<span class="formula-comment">Bound by the short side (Demand Curve)</span>`;
+            fUnemp.innerHTML = `Unemployment: ${Qs.toFixed(1)} (Qs) - ${Qd.toFixed(1)} (Qd) = ${surplus.toFixed(1)}<span class="formula-comment">Involuntary labor surplus generated</span>`;
+            fRev.innerHTML = `Total Earnings: $${W_floor.toFixed(1)} × ${actualEmp.toFixed(1)} = $${Math.round(totalEarnings)}<span class="formula-comment">Formula: Wage rate × headcount employed</span>`;
+            fDwl.innerHTML = `DWL Area: 0.5 × (${W_floor.toFixed(1)} - ${wSupplyAtQd.toFixed(1)}) × (${Qe_new.toFixed(1)} - ${actualEmp.toFixed(1)}) = $${Math.round(dwl)}<span class="formula-comment">Formula: 0.5 × Base × Height triangle loss</span>`;
+        } else {
+            fEmp.innerHTML = `Employment (Qe): Clears at natural ${Qe_new.toFixed(1)}<span class="formula-comment">W_min is ineffective; market clears naturally</span>`;
+            fUnemp.innerHTML = `Unemployment: 0.0<span class="formula-comment">No artificial surplus or legal job loss</span>`;
+            fRev.innerHTML = `Total Earnings: $${We_new.toFixed(1)} × ${Qe_new.toFixed(1)} = $${Math.round(baselineRevenue)}<span class="formula-comment">Calculated at natural market-clearing equilibrium</span>`;
+            fDwl.innerHTML = `DWL Area: $0<span class="formula-comment">Allocative efficiency is perfectly maintained</span>`;
+        }
+
         let shockSummary = "";
         if (dShock !== 'none' || sShock !== 'none') {
             shockSummary = `<b>Market Shocks Triggered:</b> Dynamic interaction forces shifted the equilibrium clearing wage point from $${We_orig.toFixed(1)} to <b>$${We_new.toFixed(1)}</b>.<br><br>`;
@@ -510,7 +545,7 @@
             ctx.beginPath();
             ctx.moveTo(getX(Qd), getY(W_floor));
             ctx.lineTo(getX(Qe_new), getY(We_new));
-            ctx.lineTo(getX(Qd), getY(We_new - (Qe_new - Qd) / slopeS));
+            ctx.lineTo(getX(Qd), getY(wSupplyAtQd));
             ctx.closePath();
             ctx.fill();
         } else {
@@ -581,7 +616,7 @@
         }
     }
 
-    // UNIQUE RENDERING SUITE FOR EMBEDDED DIAGRAMS
+    // --- MINI SOLUTION CANVAS ENGINE ---
     function drawBaseAxes(c, p) {
         c.beginPath(); c.strokeStyle = '#475569'; c.lineWidth = 1.5;
         c.moveTo(p, p); c.lineTo(p, 180 - p); c.lineTo(240 - p, 180 - p); c.stroke();
@@ -595,92 +630,70 @@
         const getX = (v) => p + (v / 100) * gW;
         const getY = (v) => h - p - (v / 100) * gH;
 
-        // --- DIAGRAM 1: ELASTICITY & PREMIUM ---
+        // DIAGRAM 1: ELASTICITY & REVENUE
         const c1 = document.getElementById('quizCanvas1').getContext('2d');
         drawBaseAxes(c1, p);
-        // Inelastic Demand (Steep)
         c1.beginPath(); c1.strokeStyle = '#2563eb'; c1.lineWidth = 2;
         c1.moveTo(getX(20), getY(85)); c1.lineTo(getX(60), getY(15)); c1.stroke();
         c1.fillStyle = '#2563eb'; c1.fillText('D', getX(62), getY(15));
-        // Supply
         c1.beginPath(); c1.strokeStyle = '#ea580c'; c1.moveTo(getX(20), getY(20)); c1.lineTo(getX(70), getY(75)); c1.stroke();
-        // Floor lines
         c1.strokeStyle = '#dc2626'; c1.setLineDash([2,2]);
-        c1.beginPath(); c1.moveTo(p, getY(55)); c1.lineTo(getX(80), getY(55)); c1.stroke(); // Floor 1
-        c1.beginPath(); c1.moveTo(p, getY(70)); c1.lineTo(getX(80), getY(70)); c1.stroke(); // Floor 2
+        c1.beginPath(); c1.moveTo(p, getY(55)); c1.lineTo(getX(80), getY(55)); c1.stroke();
+        c1.beginPath(); c1.moveTo(p, getY(70)); c1.lineTo(getX(80), getY(70)); c1.stroke();
         c1.setLineDash([]); c1.fillStyle = '#dc2626'; c1.font = '9px sans-serif';
-        c1.fillText('W_min2', w - p - 35, getY(73));
-        c1.fillText('W_min1', w - p - 35, getY(51));
-        // Fill Gain Area Green
+        c1.fillText('W_min2', w - p - 35, getY(73)); c1.fillText('W_min1', w - p - 35, getY(51));
         c1.fillStyle = 'rgba(16, 185, 129, 0.3)';
         c1.fillRect(getX(29), getY(70), getX(37)-getX(29), getY(55)-getY(70));
-        c1.fillStyle = '#059669'; c1.fillText('Gain', getX(10), getY(64));
+        c1.fillStyle = '#059669'; c1.fillText('Gain Area', getX(10), getY(64));
 
-        // --- DIAGRAM 2: DUAL SHIFT ---
+        // DIAGRAM 2: DUAL SHIFT
         const c2 = document.getElementById('quizCanvas2').getContext('2d');
         drawBaseAxes(c2, p);
-        // Demand 1 and Demand 2
         c2.lineWidth = 1.5;
         c2.beginPath(); c2.strokeStyle = '#93c5fd'; c2.moveTo(getX(20), getY(80)); c2.lineTo(getX(70), getY(30)); c2.stroke();
         c2.beginPath(); c2.strokeStyle = '#2563eb'; c2.moveTo(getX(5), getY(70)); c2.lineTo(getX(55), getY(20)); c2.stroke();
         c2.fillText('D2', getX(57), getY(20));
-        // Supply 1 and Supply 2
         c2.beginPath(); c2.strokeStyle = '#fdbb2d'; c2.moveTo(getX(15), getY(25)); c2.lineTo(getX(65), getY(75)); c2.stroke();
         c2.beginPath(); c2.strokeStyle = '#ea580c'; c2.moveTo(getX(35), getY(25)); c2.lineTo(getX(85), getY(75)); c2.stroke();
         c2.fillText('S2', getX(87), getY(75));
-        // Constant Wage line
         c2.strokeStyle = '#dc2626'; c2.beginPath(); c2.moveTo(p, getY(60)); c2.lineTo(w-p, getY(60)); c2.stroke();
-        c2.fillStyle = '#dc2626'; c2.fillText('W_min', p+5, getY(64));
-        // Mark gap widening
-        c2.fillStyle = 'rgba(239, 68, 68, 0.2)';
-        c2.fillRect(getX(15), getY(60), getX(70)-getX(15), 6);
+        c2.fillStyle = 'rgba(239, 68, 68, 0.2)'; c2.fillRect(getX(15), getY(60), getX(70)-getX(15), 6);
 
-        // --- DIAGRAM 3: CROSS SECTOR INTERDEPENDENCE ---
+        // DIAGRAM 3: CROSS SECTOR
         const c3 = document.getElementById('quizCanvas3').getContext('2d');
         drawBaseAxes(c3, p);
         c3.beginPath(); c3.strokeStyle = '#2563eb'; c3.setLineDash([2,2]);
-        c3.moveTo(getX(15), getY(65)); c3.lineTo(getX(65), getY(15)); c3.stroke(); // D1
+        c3.moveTo(getX(15), getY(65)); c3.lineTo(getX(65), getY(15)); c3.stroke();
         c3.setLineDash([]);
-        c3.beginPath(); c3.moveTo(getX(30), getY(75)); c3.lineTo(getX(80), getY(25)); c3.stroke(); // D2
+        c3.beginPath(); c3.moveTo(getX(30), getY(75)); c3.lineTo(getX(80), getY(25)); c3.stroke();
         c3.fillText('D2', getX(82), getY(25));
         c3.beginPath(); c3.strokeStyle = '#ea580c'; c3.moveTo(getX(15), getY(20)); c3.lineTo(getX(75), getY(80)); c3.stroke();
-        c3.fillText('S', getX(77), getY(80));
-        // Project Price increases
         c3.strokeStyle = '#94a3b8'; c3.setLineDash([2,2]);
         c3.beginPath(); c3.moveTo(p, getY(46)); c3.lineTo(getX(41), getY(46)); c3.stroke();
         c3.beginPath(); c3.moveTo(p, getY(56)); c3.lineTo(getX(51), getY(56)); c3.stroke();
-        c3.fillStyle = '#1e293b'; c3.fillText('P2', p-16, getY(56));
 
-        // --- DIAGRAM 4: BOUNDARY SHIFT INEFFECTIVE ---
+        // DIAGRAM 4: INEFFECTIVE
         const c4 = document.getElementById('quizCanvas4').getContext('2d');
         drawBaseAxes(c4, p);
         c4.beginPath(); c4.strokeStyle = '#93c5fd'; c4.setLineDash([2,2]);
-        c4.moveTo(getX(15), getY(70)); c4.lineTo(getX(65), getY(20)); c4.stroke(); // D1
+        c4.moveTo(getX(15), getY(70)); c4.lineTo(getX(65), getY(20)); c4.stroke();
         c4.setLineDash([]);
-        c4.beginPath(); c4.strokeStyle = '#2563eb'; c4.moveTo(getX(35), getY(85)); c4.lineTo(getX(85), getY(35)); c4.stroke(); // D2
+        c4.beginPath(); c4.strokeStyle = '#2563eb'; c4.moveTo(getX(35), getY(85)); c4.lineTo(getX(85), getY(35)); c4.stroke();
         c4.fillText('D2', getX(87), getY(35));
         c4.beginPath(); c4.strokeStyle = '#ea580c'; c4.moveTo(getX(15), getY(25)); c4.lineTo(getX(75), getY(85)); c4.stroke();
-        // Floor Line below new intersection
         c4.strokeStyle = '#64748b'; c4.beginPath(); c4.moveTo(p, getY(42)); c4.lineTo(w-p, getY(42)); c4.stroke();
-        c4.fillStyle = '#64748b'; c4.fillText('W_floor ($40)', p+5, getY(46));
         c4.fillStyle = '#2563eb'; c4.fillText('E2 ($45)', getX(58), getY(63));
 
-        // --- DIAGRAM 5: VERTICAL SUPPLY ---
+        // DIAGRAM 5: VERTICAL SUPPLY
         const c5 = document.getElementById('quizCanvas5').getContext('2d');
         drawBaseAxes(c5, p);
-        // Vertical Supply Curve
         c5.beginPath(); c5.strokeStyle = '#ea580c'; c5.lineWidth = 3;
         c5.moveTo(getX(50), getY(15)); c5.lineTo(getX(50), getY(85)); c5.stroke();
         c5.fillText('S', getX(48), getY(89));
-        // Demand
         c5.beginPath(); c5.strokeStyle = '#2563eb'; c5.lineWidth = 2;
         c5.moveTo(getX(15), getY(80)); c5.lineTo(getX(75), getY(20)); c5.stroke();
-        // Floor Line
-        c5.strokeStyle = '#dc2626'; c5.beginPath(); c2.lineWidth = 1.5;
-        c5.moveTo(p, getY(62)); c5.lineTo(w-p, getY(62)); c5.stroke();
-        // Intersection point Qd
         c5.fillStyle = '#dc2626'; c5.beginPath(); c5.arc(getX(33), getY(62), 4, 0, 2*Math.PI); c5.fill();
-        c5.fillText('Q_d determines employment', getX(5), getY(72));
+        c5.fillText('Q_d cuts employment', getX(5), getY(72));
     }
 
     historyTableRows.forEach(row => {
@@ -695,7 +708,7 @@
     demandShock.addEventListener('change', drawMarket);
     supplyShock.addEventListener('change', drawMarket);
     
-    // Initial Boot frameworks
+    // Core boot steps
     drawMarket();
     renderQuizDiagrams();
 </script>
