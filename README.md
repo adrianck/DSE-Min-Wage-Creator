@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced HKDSE Economics Minimum Wage Lab</title>
+    <title>Advanced HKDSE Economics Minimum Wage Lab & Diagnostic Center</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f5f7fa; color: #333; padding: 20px; display: flex; justify-content: center; }
         .container { max-width: 1200px; width: 100%; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         h1 { color: #1e293b; margin-top: 0; margin-bottom: 5px; font-size: 26px; }
         .subtitle { color: #64748b; margin-bottom: 25px; font-size: 14px; }
         
-        /* Layout Configuration Grid */
+        /* Interactive Inputs Grid */
         .control-panel { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 20px; }
         label { font-weight: bold; display: block; margin-bottom: 6px; color: #475569; font-size: 13px; }
         input[type="range"] { width: 100%; cursor: pointer; }
@@ -20,6 +20,7 @@
         .effective { background-color: #fee2e2; color: #991b1b; }
         .ineffective { background-color: #f1f5f9; color: #475569; }
         
+        /* Stats Panel */
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
         .stat-card { background: #f1f5f9; padding: 12px; border-radius: 8px; text-align: center; border-left: 4px solid #cbd5e1; }
         .stat-card.gain { border-left-color: #10b981; }
@@ -32,8 +33,8 @@
         .analysis-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; font-size: 13.5px; line-height: 1.6; height: 100%; box-sizing: border-box; }
         .analysis-box h3 { margin-top: 0; color: #1e293b; font-size: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
         
-        /* History & Value Systems */
-        .history-section { border-top: 2px dashed #e2e8f0; padding-top: 25px; margin-top: 10px; }
+        /* Archive Section */
+        .history-section { border-top: 2px dashed #e2e8f0; padding-top: 25px; margin-top: 10px; margin-bottom: 30px; }
         .history-section h2 { color: #0f172a; font-size: 19px; margin-top: 0; margin-bottom: 15px; }
         
         .values-education-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
@@ -55,6 +56,23 @@
         .change-up { color: #15803d; }
         .change-flat { color: #64748b; }
         
+        /* Advanced Quiz Framework Style Elements */
+        .quiz-section { border-top: 3px double #cbd5e1; padding-top: 30px; margin-top: 20px; }
+        .quiz-section h2 { color: #0f172a; font-size: 21px; margin-bottom: 5px; }
+        .quiz-desc { font-size: 13.5px; color: #64748b; margin-bottom: 25px; }
+        .quiz-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .q-number { font-weight: bold; color: #dc2626; margin-bottom: 4px; font-size: 14px; }
+        .q-text { font-weight: 600; color: #1e293b; margin-bottom: 12px; font-size: 14.5px; line-height: 1.5; }
+        .q-options { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 15px; }
+        .opt-row { background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px 14px; border-radius: 6px; font-size: 13.5px; cursor: pointer; transition: all 0.2s; }
+        .opt-row:hover { background: #f1f5f9; border-color: #cbd5e1; }
+        
+        /* Solution Dropdowns */
+        details { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 10px; overflow: hidden; }
+        summary { font-weight: bold; padding: 10px 14px; cursor: pointer; background: #e2e8f0; color: #334155; font-size: 13px; outline: none; }
+        .details-content { padding: 14px; font-size: 13.5px; line-height: 1.6; color: #334155; border-top: 1px solid #cbd5e1; }
+        .ans-pill { display: inline-block; background: #16a34a; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; margin-bottom: 8px; }
+        
         .text-gain { color: #059669; font-weight: bold; }
         .text-loss { color: #dc2626; font-weight: bold; }
         .highlight-concept { font-weight: 600; text-decoration: underline; }
@@ -64,7 +82,7 @@
 
 <div class="container">
     <h1>Advanced HKDSE Economics Minimum Wage Simulator</h1>
-    <div class="subtitle">Simulate continuous structural market shocks (Demand & Supply curves shifting) alongside legal price minimum constraints.</div>
+    <div class="subtitle">Simulate real-time microeconomic market shocks (Demand & Supply curves shifting) alongside legal price floor thresholds and advanced validation matrices.</div>
     
     <div class="control-panel">
         <div>
@@ -212,6 +230,119 @@
             </table>
         </div>
     </div>
+
+    <div class="quiz-section">
+        <h2>🔥 High-Distinction Diagnostic Exam Suite (HKDSE Level)</h2>
+        <div class="quiz-desc">Test your understanding with 5 of the most conceptually challenging multiple-choice questions regarding price floors and dynamic market interference frameworks.</div>
+
+        <div class="quiz-card">
+            <div class="q-number">QUESTION 1 (Elasticity & Revenue Manipulations)</div>
+            <div class="q-text">Suppose an effective minimum wage is already imposed on the low-skilled labor market in Hong Kong. If the government decides to raise this statutory rate further while the price elasticity of labor demand is highly inelastic within the relevant range, which of the following statements is/are CORRECT?<br>
+            (1) The involuntary unemployment gap in the market will widen.<br>
+            (2) Total wage earnings of the remaining employed workers will increase.<br>
+            (3) The deadweight loss to society will decrease because workers enjoy a higher wage rate.</div>
+            <div class="q-options">
+                <div class="opt-row">A. (1) and (2) only</div>
+                <div class="opt-row">B. (1) and (3) only</div>
+                <div class="opt-row">C. (2) and (3) only</div>
+                <div class="opt-row">D. (1), (2) and (3)</div>
+            </div>
+            <details>
+                <summary>View Solution & Economic Proof</summary>
+                <div class="details-content">
+                    <div class="ans-pill">CORRECT ANSWER: A</div><br>
+                    <b>Economic Proof:</b><br>
+                    • <b>Statement (1) is correct:</b> Raising an already effective price floor shifts the regulatory price line further up, moving the demand intercept leftward ($Q_d \downarrow$) and the supply intercept rightward ($Q_s \uparrow$). The market surplus/unemployment gap ($Q_s - Q_d$) must widen.<br>
+                    • <b>Statement (2) is correct:</b> When labor demand is price inelastic ($E_d < 1$), the percentage increase in the hourly rate ($W \uparrow$) dominates the percentage drop in the actual headcount employed ($Q_d \downarrow$). Thus, Total Wage Revenue ($W \times Q_d$) expands.<br>
+                    • <b>Statement (3) is incorrect:</b> The triangle of deadweight loss measures lost mutually beneficial trade opportunities. Shifting the wage ceiling further away from competitive equilibrium contracts the actual quantity transacted even more, causing the deadweight loss triangle to expand, not contract.
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-card">
+            <div class="q-number">QUESTION 2 (Simultaneous Shocks & Effectiveness Thresholds)</div>
+            <div class="q-text">An effective statutory minimum wage is established in an industry. Simultaneously, an structural economic recession decreases the consumer demand for the industry's output, while a concurrent revision in immigration policy results in a massive influx of low-skilled foreign workers. Holding the legal wage rate constant, how will the involuntary labor unemployment space change?</div>
+            <div class="q-options">
+                <div class="opt-row">A. It will decrease because firms lay off workers to preserve baseline capital.</div>
+                <div class="opt-row">B. It will increase because labor demand shifts left while labor supply shifts right.</div>
+                <div class="opt-row">C. It will remain unchanged because the statutory rate acts as a structural anchor.</div>
+                <div class="opt-row">D. It may increase or decrease, depending entirely on the price elasticity of supply.</div>
+            </div>
+            <details>
+                <summary>View Solution & Economic Proof</summary>
+                <div class="details-content">
+                    <div class="ans-pill">CORRECT ANSWER: B</div><br>
+                    <b>Economic Proof:</b><br>
+                    • Labor demand ($D$) is a derived demand from product markets. The industry recession causes product demand to fall, shifting the labor demand curve to the left ($D_1 \rightarrow D_2$). At the fixed minimum wage, $Q_d$ contracts significantly.<br>
+                    • The massive immigration influx increases the quantity of active job seekers, shifting the labor supply curve to the right ($S_1 \rightarrow S_2$). At the fixed minimum wage, $Q_s$ expands.<br>
+                    • Since involuntary unemployment under a price floor is defined algebraically as $Q_s - Q_d$, an expansion of $Q_s$ combined with a contraction of $Q_d$ guarantees that the structural unemployment gap must widen.
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-card">
+            <div class="q-number">QUESTION 3 (Cross-Market Complements & Subtitutes)</div>
+            <div class="q-text">Assume low-skilled human cashiers and automated self-service kiosks are strong substitutes in the retail sector. If an effective statutory minimum wage is introduced for human cashiers, what will be the resulting market impact on automated self-service kiosks?</div>
+            <div class="q-options">
+                <div class="opt-row">A. Demand for kiosks will increase, leading to a higher equilibrium price for kiosks.</div>
+                <div class="opt-row">B. Supply of kiosks will decrease as manufacturers reallocate capital back to human training.</div>
+                <div class="opt-row">C. Quantity transacted of kiosks will decrease due to the deadweight loss generated in the human cashier market.</div>
+                <div class="opt-row">D. Equilibrium price of kiosks will drop as kiosks become relatively more expensive to operate.</div>
+            </div>
+            <details>
+                <summary>View Solution & Economic Proof</summary>
+                <div class="details-content">
+                    <div class="ans-pill">CORRECT ANSWER: A</div><br>
+                    <b>Economic Proof:</b><br>
+                    • Imposing an effective minimum wage increases the actual per-hour cost of hiring low-skilled human cashiers. This represents a price increase for human labor.<br>
+                    • Since human cashiers and automated kiosks are substitutes, rational retail corporations will substitute away from human labor and toward automation infrastructure to optimize profit margins.<br>
+                    • Consequently, the market demand curve for kiosks shifts to the right. An increase in demand for kiosks leads to a higher equilibrium price and quantity transacted within the kiosk market.
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-card">
+            <div class="q-number">QUESTION 4 (Ineffective vs Effective Boundary Shifts)</div>
+            <div class="q-text">The government maintains a statutory minimum wage line at $40. Due to a sudden global technological surge, the marginal productivity of labor rises substantially, causing a massive rightward shift in the market labor demand curve ($D$). If the new natural market clearing wage shifts from $38 to $45, what happens to the actual market wage rate and deadweight loss?</div>
+            <div class="q-options">
+                <div class="opt-row">A. The wage rate remains at $40; deadweight loss increases.</div>
+                <div class="opt-row">B. The wage rate rises to $45; deadweight loss drops to zero.</div>
+                <div class="opt-row">C. The wage rate rises to $45; deadweight loss increases because the gap from $40 has expanded.</div>
+                <div class="opt-row">D. The market fails to clear because transactions above $40 are blocked by price floor rules.</div>
+            </div>
+            <details>
+                <summary>View Solution & Economic Proof</summary>
+                <div class="details-content">
+                    <div class="ans-pill">CORRECT ANSWER: B</div><br>
+                    <b>Economic Proof:</b><br>
+                    • Initially, the baseline equilibrium wage ($38) was below the minimum wage ($40), meaning the floor was **effective** and generated a deadweight loss.<br>
+                    • After the labor demand shift, the new market clearing equilibrium wage becomes $45. Since the statutory minimum wage line ($40) is now *below* the new equilibrium wage ($45), the price floor becomes **ineffective**.<br>
+                    • Under an ineffective price floor, market forces are entirely free to pull the transaction rate up to its natural market clearing level ($45). Because the market clears naturally at equilibrium without quantity rationing, allocative efficiency is restored, and deadweight loss falls to zero.
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-card">
+            <div class="q-number">QUESTION 5 (Total Expenditure Mathematical Constraints)</div>
+            <div class="q-text">If a labor market has a perfectly vertical (perfectly inelastic) labor supply curve and an effective statutory minimum wage is introduced, which of the following is an absolute certainty regarding market metrics?</div>
+            <div class="q-options">
+                <div class="opt-row">A. Deadweight loss will be maximized because the entire supply curve is blocked.</div>
+                <div class="opt-row">B. The size of the involuntary unemployment gap will equal zero.</div>
+                <div class="opt-row">C. The actual quantity of labor employed is determined entirely by the labor demand curve at the minimum wage rate.</div>
+                <div class="opt-row">D. Total wage earnings in the market will decrease regardless of the elasticity of demand.</div>
+            </div>
+            <details>
+                <summary>View Solution & Economic Proof</summary>
+                <div class="details-content">
+                    <div class="ans-pill">CORRECT ANSWER: C</div><br>
+                    <b>Economic Proof:</b><br>
+                    • When any effective price floor is imposed above the market equilibrium, the quantity transacted is always determined by the short side of the market (the binding side). Because $W_{min} > W_e$, quantity demanded ($Q_d$) drops below equilibrium, while quantity supplied ($Q_s$) is at its full inelastic capacity.<br>
+                    • Since $Q_d < Q_s$, buyers (employers) dictate the actual transaction headcount. Hence, employment is completely determined by the coordinates on the labor demand curve at that statutory rate, proving **C** correct.<br>
+                    • Note on B: Involuntary unemployment will exist because at $W_{min}$, the quantity of labor supplied (which matches the fixed pool) exceeds the shrinking quantity demanded.
+                </div>
+            </details>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -302,7 +433,7 @@
             if (totalEarnings > baselineRevenue) {
                 earningsCard.className = "stat-card gain";
                 analysisText.innerHTML = `${shockSummary}
-                    <b>Policy Status:</b> Effective ($${W_floor.toFixed(1)} &gt; Current Eq $${We_new.toFixed(1)})<br><br>
+                    <b>Policy Status:</b> Effective ($${W_floor.toFixed(1)} &gt; Current Dynamic Equilibrium $${We_new.toFixed(1)})<br><br>
                     <b>Total Labor Expenditure Outcome:</b><br>
                     Because labor demand is <span class="text-gain">Inelastic</span>, the percentage wage adjustment outpaces the percentage layoff response.<br>
                     • Green Geometric Box &gt; Red Geometric Box.<br>
@@ -312,7 +443,7 @@
             } else {
                 earningsCard.className = "stat-card loss";
                 analysisText.innerHTML = `${shockSummary}
-                    <b>Policy Status:</b> Effective ($${W_floor.toFixed(1)} &gt; Current Eq $${We_new.toFixed(1)})<br><br>
+                    <b>Policy Status:</b> Effective ($${W_floor.toFixed(1)} &gt; Current Dynamic Equilibrium $${We_new.toFixed(1)})<br><br>
                     <b>Total Labor Expenditure Outcome:</b><br>
                     Because labor demand is <span class="text-loss">Elastic</span>, firms rapidly downscale staffing levels to offset regulatory costs.<br>
                     • Red Geometric Box &gt; Green Geometric Box.<br>
@@ -326,7 +457,7 @@
             earningsCard.className = "stat-card";
             dwlCard.className = "stat-card";
             analysisText.innerHTML = `${shockSummary}
-                <b>Policy Status:</b> Ineffective ($${W_floor.toFixed(1)} &le; Current Eq $${We_new.toFixed(1)})<br><br>
+                <b>Policy Status:</b> Ineffective ($${W_floor.toFixed(1)} &le; Current Dynamic Equilibrium $${We_new.toFixed(1)})<br><br>
                 <b>Outcome Analysis:</b><br>
                 The minimum wage constraint is below the dynamic equilibrium rate. Market forces pull coordinates up to equilibrium clearing price <b>$${We_new.toFixed(1)}</b>.<br><br>
                 • Employment clears naturally at <b>${Qe_new.toFixed(1)}</b>.<br>
